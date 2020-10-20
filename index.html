@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+<meta charset="utf-8">
+	<title>Weather</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<img class="theme" src="https://source.unsplash.com/random">
+<!-- <img class="theme" src="img/296087.jpg"> -->
+<div class="weather">
+  <input type="text" id="cityname" class="istyle">
+  <button id="press" type="button" class="go" disabled="disabled">Check Weather</button>
+	<h2>City : <span id="city"></span></h2>
+	<p>Country : <span id="country"></span></p>
+	<h1>temperature : <span id="temp"></span><sup>0</sup>C</h1>
+
+  <a  id="Email" class="share-button" target="_blank" data-size="large">
+    <i class="fa fa-envelope" style="font-size:48px;color:#145de1cc;transition: .5s"></i>
+  </a>
+  <a  id="facebook" class="share-button" target="_blank" data-size="large">
+    <i class="fa fa-facebook-official" style="font-size:48px;color:#3b5998;transition: .5s"></i>
+  </a>
+  <a  id="twitter_s" class="share-button" target="_blank" data-size="large">
+    <i class="fa fa-twitter" style="font-size:48px;color:#1da1f2;transition: .5s"></i>
+  </a>
+  <a  id="linked_in" class="share-button" target="_blank" data-size="large">
+    <i class="fa fa-linkedin-square" style="font-size:48px;color:#0077B5;transition: .5s"></i>
+  </a>
+</div>
+
+
+<script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript">
+  	$(document).ready(function(){
+  		$('#cityname').keyup(function(){
+  			if ($(this).val() == '') {
+  				$('.go').prop('disabled', true);
+  			} else {
+  				$('.go').prop('disabled', false);
+  			}
+  		});
+
+  		 $("#press").click(function(){
+  		 	var city = $("#cityname").val();
+  		 	$('.go').prop('disabled', true);
+  		 	$('.go').text("loading...");
+  		 	$.ajax({
+  			url:"http://api.weatherstack.com/current?access_key=3c7daaa800e115c5f81b3a44a40b1fb9&query="+city,
+
+  			dataType:"json",
+        
+  			success:function(data){
+  				$("#city").text(data.location.name);
+  				$("#country").text(data.location.country);
+  				$("#temp").text(data.current.temperature);
+  				$('.go').prop('disabled', false);
+  				$('.go').text("check again");
+
+          var details = "City Name :" +data.location.name+ " Country :" +data.location.country+ " Temperature:" +data.current.temperature;
+
+          $("#twitter_s").attr("href","https://twitter.com/intent/tweet?text="+details);
+
+          $("#facebook").attr("href","https://www.facebook.com/sharer/sharer.php?u="+document.URL);
+
+  			},
+  			error:function(){
+  				// $("#city").text("Invalid Input");
+  				$("#city").text('Oh we are sorry,Invalid Input');
+  			}
+  			
+  		});
+
+  		 });
+  	});
+
+
+
+  </script>
+
+</body>
+</html>
