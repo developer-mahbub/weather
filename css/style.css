@@ -22,22 +22,46 @@ body{
 	  border-radius: 10px;
 }
 
+h1,h2,h3,h4,h5,h6,p{
+	margin: 0;
+	padding: 0;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
 h1{
 	color:#d3c5f0;
 }
 h2{
 	color:#4f99d7;
 }
-p{
+h3,p{
 	color:#6671f7;
 	font-size: 20px;
 }
 a{
 	text-decoration: none;
 }
-
+.error{
+	color: #d9534f;
+}
 .tweetbtn{
    width: 60px;
+}
+.istyle{
+	padding: 10px;
+    width: 200px;
+    display: inline-block;
+    border: 1px solid #f9f0e0;
+	border-radius: 3px;
+	color: #5395bf;
+	text-transform: capitalize;
+}
+.istyle:focus{
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+#cityname[readonly="readonly"]:hover{
+	cursor: not-allowed;
 }
 .go{
 	background: #5395bf;
@@ -62,17 +86,6 @@ a{
 	background: #055bf9;
 	border: 1px solid #055bf9;
 }
-
-.istyle{
-	padding: 10px;
-    width: 200px;
-    display: inline-block;
-    border: 1px solid #f9f0e0;
-	border-radius: 3px;
-}
-.istyle:focus{
-	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
-}
 .share-button{
 	margin: 10px;
 }
@@ -91,4 +104,48 @@ a{
 
 #linked_in i:hover{
 	color: #0AA2F0!important;
+}
+
+
+/*modal*/
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: black; /* Fallback color */
+  background-color:  rgba(11, 11, 11, 0.73); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+  border-radius: 5px;
+  margin-top: 98px;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
