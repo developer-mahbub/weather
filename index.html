@@ -48,11 +48,6 @@
 <script type="text/javascript" src="js/jquery.js"></script>
   <script type="text/javascript">
   	$(document).ready(function(){
-      if ($('#cityname').val() == '') {
-        $('.go').prop('disabled', true);
-      } else {
-        $('.go').prop('disabled', false);
-      }
   		$('#cityname').keyup(function(){
   			if ($(this).val() == '') {
   				$('.go').prop('disabled', true);
@@ -91,9 +86,9 @@
 
   			error:function(){
            $('#cityname').removeAttr('readonly', '');
-  				 $(".modal-content p").text("Maybe Invalid Input.Please Try again with valid input.");
-  				 $('.go').prop('disabled', false);
-  				 $('.go').text("Try again");
+  		   $(".modal-content p").text("Maybe Invalid Input.Please Try again with valid input.");
+  		   $('.go').prop('disabled', false);
+  		   $('.go').text("Try again");
            $('.go').css('cursor', 'auto');
            $('#myModal').css('display', 'block');
            $('.close').click(function(){
