@@ -9,14 +9,17 @@
 </head>
 <body>
 <img class="theme" src="https://source.unsplash.com/random">
-<!-- <img class="theme" src="img/296087.jpg"> -->
 <div class="weather">
-  <input type="text" id="cityname" class="istyle">
+  <!-- user input and fire button -->
+  <input type="text" id="cityname" class="istyle" autocomplete="off">
   <button id="press" type="button" class="go" disabled="disabled">Check Weather</button>
-	<h2>City : <span id="city"></span></h2>
-	<p>Country : <span id="country"></span></p>
-	<h1>temperature : <span id="temp"></span><sup>0</sup>C</h1>
 
+  <!-- output the result -->
+    <h2>City : <span id="city"></span></h2>
+    <p>Country : <span id="country"></span></p>
+    <h1>temperature : <span id="temp"></span><sup>0</sup>C</h1>
+
+  <!-- social share -->
   <a  id="Email" class="share-button" target="_blank" data-size="large">
     <i class="fa fa-envelope" style="font-size:48px;color:#145de1cc;transition: .5s"></i>
   </a>
@@ -28,13 +31,28 @@
   </a>
   <a  id="linked_in" class="share-button" target="_blank" data-size="large">
     <i class="fa fa-linkedin-square" style="font-size:48px;color:#0077B5;transition: .5s"></i>
-  </a>
+  </a> 
 </div>
 
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+
+</div>
 
 <script type="text/javascript" src="js/jquery.js"></script>
   <script type="text/javascript">
   	$(document).ready(function(){
+      if ($('#cityname').val() == '') {
+        $('.go').prop('disabled', true);
+      } else {
+        $('.go').prop('disabled', false);
+      }
   		$('#cityname').keyup(function(){
   			if ($(this).val() == '') {
   				$('.go').prop('disabled', true);
@@ -45,30 +63,45 @@
 
   		 $("#press").click(function(){
   		 	var city = $("#cityname").val();
-  		 	$('.go').prop('disabled', true);
-  		 	$('.go').text("loading...");
   		 	$.ajax({
   			url:"http://api.weatherstack.com/current?access_key=3c7daaa800e115c5f81b3a44a40b1fb9&query="+city,
 
   			dataType:"json",
+
+  			beforeSend: function(){
+  				$('#cityname').attr('readonly', '');
+  				$('.go').prop('disabled', true);
+  		 		$('.go').text("loading...");
+  		 		$('.go').css('cursor', 'wait');
+  			},
         
   			success:function(data){
   				$("#city").text(data.location.name);
   				$("#country").text(data.location.country);
   				$("#temp").text(data.current.temperature);
+          $('#cityname').removeAttr('readonly', '');
   				$('.go').prop('disabled', false);
   				$('.go').text("check again");
+          $('.go').css('cursor', 'auto');
 
           var details = "City Name :" +data.location.name+ " Country :" +data.location.country+ " Temperature:" +data.current.temperature;
-
           $("#twitter_s").attr("href","https://twitter.com/intent/tweet?text="+details);
-
           $("#facebook").attr("href","https://www.facebook.com/sharer/sharer.php?u="+document.URL);
-
   			},
+
   			error:function(){
-  				// $("#city").text("Invalid Input");
-  				$("#city").text('Oh we are sorry,Invalid Input');
+           $('#cityname').removeAttr('readonly', '');
+  				 $(".modal-content p").text("Maybe Invalid Input.Please Try again with valid input.");
+  				 $('.go').prop('disabled', false);
+  				 $('.go').text("Try again");
+           $('.go').css('cursor', 'auto');
+           $('#myModal').css('display', 'block');
+           $('.close').click(function(){
+             $('#myModal').css('display', 'none');
+            });
+           $(window).click(function(){
+             $('#myModal').css('display', 'none');
+           });
   			}
   			
   		});
@@ -76,9 +109,6 @@
   		 });
   	});
 
-
-
   </script>
-
 </body>
 </html>
